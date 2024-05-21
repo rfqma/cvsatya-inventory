@@ -1,54 +1,134 @@
-import DeployButton from "../components/DeployButton";
-import AuthButton from "../components/AuthButton";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
 import { createClient } from "@/utils/supabase/server";
-import ConnectSupabaseSteps from "@/components/tutorial/ConnectSupabaseSteps";
-import SignUpUserSteps from "@/components/tutorial/SignUpUserSteps";
-import Header from "@/components/Header";
+import { redirect } from "next/navigation";
 
 export default async function Index() {
-  const canInitSupabaseClient = () => {
-    // This function is just for the interactive tutorial.
-    // Feel free to remove it once you have Supabase connected.
-    try {
-      createClient();
-      return true;
-    } catch (e) {
-      return false;
-    }
-  };
+  const supabase = createClient();
 
-  const isSupabaseConnected = canInitSupabaseClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return redirect("/login");
+  }
+
+  const { data: alatGudang } = await supabase.from("tools").select();
+  const { data: daftarProyek } = await supabase.from("projects").select();
+  const { data: daftarProyekSelesai } = await supabase
+    .from("projects")
+    .select()
+    .eq("isDone", true);
+
+  const { data: allJumlahTerpakai } = await supabase
+    .from("tools")
+    .select("jumlah_terpakai");
+
+  const jumlahTerpakai = allJumlahTerpakai?.reduce(
+    (accumulator, currentValue) => {
+      return accumulator + parseInt(currentValue.jumlah_terpakai, 10);
+    },
+    0
+  );
+
+  const { data: allJumlahAwal } = await supabase
+    .from("tools")
+    .select("jumlah_awal");
+
+  const jumlahAwal = allJumlahAwal?.reduce((accumulator, currentValue) => {
+    return accumulator + parseInt(currentValue.jumlah_awal, 10);
+  }, 0);
+
+  const { data: allJumlahSekarang } = await supabase
+    .from("tools")
+    .select("jumlah_sekarang");
+
+  const jumlahSekarang = allJumlahSekarang?.reduce(
+    (accumulator, currentValue) => {
+      return accumulator + parseInt(currentValue.jumlah_sekarang, 10);
+    },
+    0
+  );
 
   return (
-    <div className="flex-1 w-full flex flex-col gap-20 items-center">
-      <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-        <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm">
-          <DeployButton />
-          {isSupabaseConnected && <AuthButton />}
+    <div className="flex flex-col flex-1 gap-20 p-5">
+      <main className="grid items-start flex-1 gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
+        <div className="grid items-start gap-4 auto-rows-max md:gap-8 lg:col-span-2">
+          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
+            <Card className="sm:col-span-2" x-chunk="dashboard-05-chunk-0">
+              <CardHeader className="pb-3">
+                <CardTitle>Inventaris CV Satya</CardTitle>
+                <CardDescription className="max-w-lg leading-relaxed text-balance">
+                  Aplikasi Inventaris CV Satya adalah aplikasi yang digunakan
+                  untuk mengelola data inventaris barang yang ada di CV Satya.
+                </CardDescription>
+              </CardHeader>
+              {/* <CardFooter>
+                <Button>Create New Order</Button>
+              </CardFooter> */}
+            </Card>
+            <Card x-chunk="dashboard-05-chunk-1">
+              <CardHeader className="pb-2">
+                <CardDescription>Jumlah Proyek</CardDescription>
+                <CardTitle className="text-4xl">
+                  {daftarProyek?.length}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-xs text-muted-foreground">
+                  {daftarProyekSelesai?.length} Selesai
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Progress
+                  value={
+                    daftarProyekSelesai && daftarProyek
+                      ? (daftarProyekSelesai?.length / daftarProyek?.length) *
+                        100
+                      : null
+                  }
+                  aria-label="25% increase"
+                />
+              </CardFooter>
+            </Card>
+            <Card x-chunk="dashboard-05-chunk-2">
+              <CardHeader className="pb-2">
+                <CardDescription>Jumlah Alat di Gudang</CardDescription>
+                <CardTitle className="text-4xl">{alatGudang?.length}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-xs text-muted-foreground">
+                  Total {jumlahAwal} kuantitas alat
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  Total {jumlahSekarang} kuantitas alat sisa
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  Total {jumlahTerpakai} kuantitas alat terpakai
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Progress
+                  value={
+                    jumlahTerpakai && jumlahAwal
+                      ? (jumlahTerpakai / jumlahAwal) * 100
+                      : null
+                  }
+                  aria-label="12% increase"
+                />
+              </CardFooter>
+            </Card>
+          </div>
         </div>
-      </nav>
-
-      <div className="animate-in flex-1 flex flex-col gap-20 opacity-0 max-w-4xl px-3">
-        <Header />
-        <main className="flex-1 flex flex-col gap-6">
-          <h2 className="font-bold text-4xl mb-4">Next steps</h2>
-          {isSupabaseConnected ? <SignUpUserSteps /> : <ConnectSupabaseSteps />}
-        </main>
-      </div>
-
-      <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
-        <p>
-          Powered by{" "}
-          <a
-            href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-            target="_blank"
-            className="font-bold hover:underline"
-            rel="noreferrer"
-          >
-            Supabase
-          </a>
-        </p>
-      </footer>
+      </main>
     </div>
   );
 }
