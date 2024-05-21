@@ -220,7 +220,7 @@ export default function Page() {
           <CardHeader className="px-7">
             <CardTitle>Daftar Alat</CardTitle>
             <CardDescription>
-              Daftar Alat-alat yang ada di gudang.
+              Daftar Alat-alat yang ada di proyek ini.
             </CardDescription>
           </CardHeader>
           <CardContent>

@@ -114,7 +114,7 @@ export default function SimpleLayout({
         <div className="flex flex-col h-full max-h-screen gap-2">
           <div className="flex h-14 items-center border-b dark:border-b-zinc-800 border-b-zinc-200 px-4 lg:h-[60px] lg:px-6">
             <Link href="/" className="flex items-center gap-2 font-semibold">
-              <span className="">Inventaris CV Satya</span>
+              <span className="text-sm">Pendataan Peralatan CV Satya</span>
             </Link>
           </div>
           <div className="flex-1">

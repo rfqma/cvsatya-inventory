@@ -9,6 +9,7 @@ import {
 import { Progress } from "@/components/ui/progress";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
+import Image from "next/image";
 
 export default async function Index() {
   const supabase = createClient();
@@ -65,7 +66,14 @@ export default async function Index() {
           <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
             <Card className="sm:col-span-2" x-chunk="dashboard-05-chunk-0">
               <CardHeader className="pb-3">
-                <CardTitle>Inventaris CV Satya</CardTitle>
+                <Image
+                  src={"/logo-name-alamat.jpg"}
+                  alt="logo-name-alamat.jpg"
+                  width={300}
+                  height={300}
+                  className="mb-4 rounded-lg"
+                />
+                <CardTitle>Pendataan Peralatan CV Satya</CardTitle>
                 <CardDescription className="max-w-lg leading-relaxed text-balance">
                   Aplikasi Inventaris CV Satya adalah aplikasi yang digunakan
                   untuk mengelola data inventaris barang yang ada di CV Satya.
@@ -75,7 +83,10 @@ export default async function Index() {
                 <Button>Create New Order</Button>
               </CardFooter> */}
             </Card>
-            <Card x-chunk="dashboard-05-chunk-1">
+            <Card
+              x-chunk="dashboard-05-chunk-1"
+              className="flex flex-col justify-between"
+            >
               <CardHeader className="pb-2">
                 <CardDescription>Jumlah Proyek</CardDescription>
                 <CardTitle className="text-4xl">
@@ -99,7 +110,10 @@ export default async function Index() {
                 />
               </CardFooter>
             </Card>
-            <Card x-chunk="dashboard-05-chunk-2">
+            <Card
+              x-chunk="dashboard-05-chunk-2"
+              className="flex flex-col justify-between"
+            >
               <CardHeader className="pb-2">
                 <CardDescription>Jumlah Alat di Gudang</CardDescription>
                 <CardTitle className="text-4xl">{alatGudang?.length}</CardTitle>
