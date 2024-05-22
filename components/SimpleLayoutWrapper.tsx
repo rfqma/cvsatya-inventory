@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import SimpleLayout from "./SimpleLayout";
 
-export default async function SimpleLayoutWrapper({
+export default function SimpleLayoutWrapper({
   children,
 }: {
   children: React.ReactNode;

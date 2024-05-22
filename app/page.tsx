@@ -67,8 +67,8 @@ export default async function Index() {
             <Card className="sm:col-span-2" x-chunk="dashboard-05-chunk-0">
               <CardHeader className="pb-3">
                 <Image
-                  src={"/logo-name-alamat.jpg"}
-                  alt="logo-name-alamat.jpg"
+                  src={"/logo-name.png"}
+                  alt="logo-name.png"
                   width={300}
                   height={300}
                   className="mb-4 rounded-lg"
