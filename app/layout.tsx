@@ -11,8 +11,9 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "Next.js and Supabase Starter Kit",
-  description: "The fastest way to build apps with Next.js and Supabase",
+  title: "Pendataan Peralatan CV. Satya",
+  description:
+    "Aplikasi Inventaris CV Satya adalah aplikasi yang digunakan untuk mengelola data inventaris barang yang ada di CV Satya.",
 };
 
 export default function RootLayout({
