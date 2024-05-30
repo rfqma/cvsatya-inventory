@@ -263,9 +263,9 @@ export default function Page() {
                         <div className="font-medium">
                           {alatInstance.tools.nama_alat}
                         </div>
-                        <div className="hidden text-sm text-muted-foreground md:inline">
+                        {/* <div className="hidden text-sm text-muted-foreground md:inline">
                           liam@example.com
-                        </div>
+                        </div> */}
                       </TableCell>
                       <TableCell className="hidden sm:table-cell">
                         {alatInstance.tools.kode_alat}

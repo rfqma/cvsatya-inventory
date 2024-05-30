@@ -9,7 +9,7 @@ export default function SimpleLayoutWrapper({
   children: React.ReactNode;
 }) {
   const pathName = usePathname();
-  const showSimpleLayout = pathName !== "/login";
+  const showSimpleLayout = pathName !== "/login" && pathName !== "/register";
 
   return (
     <div className="flex flex-col items-center flex-1 w-full gap-24">

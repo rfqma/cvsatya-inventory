@@ -114,7 +114,7 @@ export default function SimpleLayout({
         <div className="flex flex-col h-full max-h-screen gap-2">
           <div className="flex h-14 items-center border-b dark:border-b-zinc-800 border-b-zinc-200 px-4 lg:h-[60px] lg:px-6">
             <Link href="/" className="flex items-center gap-2 font-semibold">
-              <span className="text-sm">Pendataan Peralatan CV Satya</span>
+              <span className="text-lg">SIPERAL</span>
             </Link>
           </div>
           <div className="flex-1">
@@ -319,7 +319,7 @@ export default function SimpleLayout({
         <Toaster />
 
         <footer className="flex justify-center w-full p-8 text-xs text-center border-t dark:border-t-zinc-200/10 border-t-zinc-200">
-          <p>
+          {/* <p>
             &copy; Copyright by{" "}
             <a
               href="https://rifqimaulana.xyz"
@@ -329,7 +329,7 @@ export default function SimpleLayout({
             >
               Rifqi Maulana
             </a>
-          </p>
+          </p> */}
         </footer>
       </div>
     </div>
