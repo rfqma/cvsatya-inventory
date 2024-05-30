@@ -75,8 +75,8 @@ export default async function Index() {
                 />
                 <CardTitle>Pendataan Peralatan CV Satya</CardTitle>
                 <CardDescription className="max-w-lg leading-relaxed text-balance">
-                  Aplikasi Inventaris CV Satya adalah aplikasi yang digunakan
-                  untuk mengelola data inventaris barang yang ada di CV Satya.
+                  SIPERAL adalah aplikasi yang digunakan untuk mengelola data
+                  inventaris barang yang ada di CV Satya.
                 </CardDescription>
               </CardHeader>
               {/* <CardFooter>
