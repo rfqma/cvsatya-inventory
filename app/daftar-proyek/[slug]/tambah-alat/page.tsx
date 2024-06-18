@@ -36,7 +36,7 @@ import { useToast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
   tool_id: z.string(),
-  project_id: z.number(),
+  project_id: z.string(),
 });
 
 export default function Page() {
@@ -55,7 +55,7 @@ export default function Page() {
   };
 
   const param = useParams().slug;
-  const project_id = param[0];
+  const project_id = param;
   const router = useRouter();
   const [alatGudang, setAlatGudang] = useState<Alat[]>([]);
   const { toast } = useToast();
@@ -82,7 +82,7 @@ export default function Page() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      project_id: parseInt(project_id),
+      project_id: project_id.toString(),
       tool_id: "0",
     },
   });
@@ -96,7 +96,7 @@ export default function Page() {
 
       const { error } = await supabase.from("tool_instances").insert([
         {
-          project_id: parseInt(project_id),
+          project_id: parseInt(project_id.toString()),
           tool_id: parseInt(values.tool_id),
         },
       ]);
